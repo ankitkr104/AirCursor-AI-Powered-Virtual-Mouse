@@ -1,11 +1,11 @@
-Virtual Mouse using Hand Gestures (Python)
+**Virtual Mouse using Hand Gestures (Python)**
 
 This project allows you to control your computer mouse using hand gestures through a webcam.
 No physical mouse required — just your hand and a camera.
 
 It uses computer vision + AI hand tracking to detect finger movements and convert them into mouse actions like move, left click, and right click.
 
-🚀 Features
+**Features**
 
 🖱️ Move mouse cursor using index finger
 
@@ -23,7 +23,7 @@ It uses computer vision + AI hand tracking to detect finger movements and conver
 
 🛠️ Technologies Used
 
-Python
+**Python**
 
 OpenCV – webcam access & image processing
 
@@ -37,7 +37,7 @@ Math & Time – gesture distance & cooldown handling
 
 ctypes – Windows system window control
 
-🖐️ Hand Gestures & Actions
+ **Hand Gestures & Actions**
 Gesture	Action
 Index finger up only	Move cursor
 Thumb + Index close	Left click
