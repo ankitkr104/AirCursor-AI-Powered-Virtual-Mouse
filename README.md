@@ -7,13 +7,13 @@ It uses computer vision + AI hand tracking to detect finger movements and conver
 
 **Features**
 
-🖱️ Move mouse cursor using index finger
-👆 Left click using thumb + index finger
-👉 Right click using thumb + middle finger
-✅ Detects YES gesture (index + middle finger up)
-🎥 Real-time hand tracking via webcam
-🪟 Camera preview window stays always on top
-🧠 Smooth cursor movement (no shaky motion)
+🖱️ Move mouse cursor using index finger.
+👆 Left click using thumb + index finger.
+👉 Right click using thumb + middle finger.
+✅ Detects YES gesture (index + middle finger up).
+🎥 Real-time hand tracking via webcam.
+🪟 Camera preview window stays always on top.
+🧠 Smooth cursor movement (no shaky motion).
 🛠️ Technologies Used
 
 **Python**
