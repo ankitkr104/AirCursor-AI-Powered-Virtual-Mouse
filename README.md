@@ -11,23 +11,23 @@ The Virtual Mouse detects hand gestures through a webcam and maps them to mouse 
 
 **Features**
 
-🖱️ Cursor Movement using index finger
+Cursor Movement using index finger
 
-👆 Left Click using thumb + index finger
+Left Click using thumb + index finger
 
-👉 Right Click using thumb + middle finger
+Right Click using thumb + middle finger
 
-✅ YES Gesture Detection (index + middle finger up)
+YES Gesture Detection (index + middle finger up)
 
-🎥 Real-time hand tracking via webcam
+Real-time hand tracking via webcam
 
-🪟 Always-on-top camera preview window
+Always-on-top camera preview window
 
-🧠 Smooth cursor motion with jitter reduction
+Smooth cursor motion with jitter reduction
 
-⏱️ Click cooldown to prevent accidental clicks
+Click cooldown to prevent accidental clicks
 
-⌨️ ESC key to safely exit the program
+ESC key to safely exit the program
 
 **Technologies Used**
 
