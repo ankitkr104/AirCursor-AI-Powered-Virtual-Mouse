@@ -52,6 +52,10 @@ import json
 import os
 from datetime import datetime
 
+# ===================== SMOOTHING CONFIGURATION =====================
+SMOOTHENING = 6   # higher = smoother but slower
+prev_x, prev_y = 0, 0
+
 # ===================== CONFIGURATION SYSTEM =====================
 class Config:
     """Configuration Class - All Settings in One Place"""
@@ -346,61 +350,37 @@ def get_position(landmarks, idx):
 # ===================== CURSOR MOVEMENT =====================
 
 def move_cursor(index_x, index_y, state):
-    """Advanced cursor movement with smoothing"""
+    """Simple cursor movement with toggleable smoothing"""
+    global prev_x, prev_y
+    
     # Map to screen coordinates
-    target_x = np.interp(
+    x = int(np.interp(
         index_x, 
         (Config.FRAME_MARGIN, Config.CAM_WIDTH - Config.FRAME_MARGIN), 
         (0, Config.SCREEN_WIDTH)
-    )
-    target_y = np.interp(
+    ))
+    y = int(np.interp(
         index_y, 
         (Config.FRAME_MARGIN, Config.CAM_HEIGHT - Config.FRAME_MARGIN), 
         (0, Config.SCREEN_HEIGHT)
-    )
-    
-    # Add to history
-    state.cursor_history.append((target_x, target_y))
-    if len(state.cursor_history) > Config.HISTORY_SIZE:
-        state.cursor_history.pop(0)
-    
-    # Velocity-based smoothing
-    if len(state.cursor_history) >= 3:
-        recent_positions = state.cursor_history[-3:]
-        velocities = []
-        
-        for i in range(1, len(recent_positions)):
-            dx = recent_positions[i][0] - recent_positions[i-1][0]
-            dy = recent_positions[i][1] - recent_positions[i-1][1]
-            velocity = math.sqrt(dx*dx + dy*dy)
-            velocities.append(velocity)
-        
-        avg_velocity = sum(velocities) / len(velocities)
-        
-        if avg_velocity > 50:
-            smoothing_factor = Config.SMOOTHING * 0.7
-        else:
-            smoothing_factor = Config.SMOOTHING * 1.3
-        
-        weights = [0.1, 0.3, 0.6]
-        smooth_x = sum(pos[0] * weights[i] for i, pos in enumerate(recent_positions)) / sum(weights)
-        smooth_y = sum(pos[1] * weights[i] for i, pos in enumerate(recent_positions)) / sum(weights)
-        
-    else:
-        smooth_x, smooth_y = target_x, target_y
-        smoothing_factor = Config.SMOOTHING
+    ))
     
     # Apply smoothing
-    state.curr_x = state.prev_x + (smooth_x - state.prev_x) / smoothing_factor
-    state.curr_y = state.prev_y + (smooth_y - state.prev_y) / smoothing_factor
-
+    smooth_x = prev_x + (x - prev_x) // SMOOTHENING
+    smooth_y = prev_y + (y - prev_y) // SMOOTHENING
+    
+    prev_x, prev_y = smooth_x, smooth_y
+    
     # Move cursor safely
     try:
-        state.curr_x = max(0, min(state.curr_x, Config.SCREEN_WIDTH - 1))
-        state.curr_y = max(0, min(state.curr_y, Config.SCREEN_HEIGHT - 1))
+        smooth_x = max(0, min(smooth_x, Config.SCREEN_WIDTH - 1))
+        smooth_y = max(0, min(smooth_y, Config.SCREEN_HEIGHT - 1))
         
-        pyautogui.moveTo(state.curr_x, state.curr_y)
-        state.prev_x, state.prev_y = state.curr_x, state.curr_y
+        pyautogui.moveTo(smooth_x, smooth_y)
+        
+        # Update state for compatibility
+        state.curr_x, state.curr_y = smooth_x, smooth_y
+        state.prev_x, state.prev_y = smooth_x, smooth_y
         
     except Exception as e:
         if Config.ENABLE_DEBUG_INFO:
