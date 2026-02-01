@@ -5,9 +5,11 @@ This project combines computer vision and AI-based hand tracking to translate fi
 
 Your hand becomes the controller. The webcam becomes the sensor. Science fiction, politely applied.
 
+
 **Overview**
 
 The Virtual Mouse detects hand gestures through a webcam and maps them to mouse operations such as cursor movement and clicking. It uses MediaPipe’s hand landmark detection to track finger positions accurately and PyAutoGUI to control the system mouse smoothly and reliably.
+
 
 **Features**
 
@@ -66,6 +68,7 @@ Landmark positions are mapped to screen coordinates
 PyAutoGUI performs mouse actions
 
 Smoothing and cooldown logic ensure stability
+
 
 **Installation**
 
